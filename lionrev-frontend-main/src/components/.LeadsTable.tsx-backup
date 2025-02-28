@@ -1,0 +1,100 @@
+import { format } from 'date-fns';
+import type { Lead } from '../types/Lead';
+
+interface LeadsTableProps {
+  leads: Lead[];
+  columnVisibility: { [key: string]: boolean };
+}
+
+export const LeadsTable = ({ leads, columnVisibility }: LeadsTableProps) => {
+  return (
+    <div className="bg-white rounded-lg shadow">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              {columnVisibility.fullName && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Full Name
+                </th>
+              )}
+              {columnVisibility.email && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Email
+                </th>
+              )}
+              {columnVisibility.phone && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Phone
+                </th>
+              )}
+              {columnVisibility.service && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Service Interested In
+                </th>
+              )}
+
+{columnVisibility.revenue && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  revenue
+                </th>
+              )}
+              {columnVisibility.zip && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Zip Code
+                </th>
+              )}
+              {columnVisibility.createdDate && (
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Created Date
+                </th>
+              )}
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {leads.map((lead) => (
+              <tr key={lead.id}>
+                {columnVisibility.fullName && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.full_name}
+                  </td>
+                )}
+                {columnVisibility.email && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.email}
+                  </td>
+                )}
+                {columnVisibility.phone && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.phone_number}
+                  </td>
+                )}
+                {columnVisibility.service && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.services_interested}
+                  </td>
+                )}
+
+{columnVisibility.revenue && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.revenue}
+                  </td>
+                )}
+                {columnVisibility.zip && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {lead.zip_code}
+                  </td>
+                )}
+                {columnVisibility.createdDate && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    {format(lead.create_at, 'yyyy-MM-dd HH:mm:ss')}
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
